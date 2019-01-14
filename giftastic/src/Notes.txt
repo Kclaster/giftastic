@@ -1,0 +1,4 @@
+State:
+1. State will keep track of what the user types into the input text.
+2. State will keep track of when Client clicks on a Favorite List Item (I will then need to render that JSON to page)
+
