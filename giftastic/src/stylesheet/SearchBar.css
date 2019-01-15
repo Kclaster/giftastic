@@ -1,6 +1,81 @@
-/* .form {
-    border: 1px solid black;
-    background-color: white;
-    width: 50vw;
-    height: 6vh;
-} */
+.form {
+    width: 75vw;
+    display: flex;
+    justify-content: center;
+}
+
+.input {
+    border-radius: 3px;
+    width: 45vw;
+    height: 35px;
+    margin-right: 4vw;
+}
+
+
+.submit-button {
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    background-color: #b6a736; /* Green */
+    border: none;
+    padding: 5px 15px;
+    border-radius: 3px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 1vw;
+    margin-bottom: 2vh;
+
+}
+
+.submit-button:hover {
+    background-color: white; /* Green */
+    color: #b6a736;
+    border: 1px solid #b6a736;
+}
+
+.Giff {
+    background-color: white; /* Green */
+    color: #b6a736;
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.omdb {
+    background-color: white; /* Green */
+    color: red;
+}
+
+.GiffBorder {
+    border: 1px solid #b6a736;
+}
+
+.omdbBorder {
+    border: 1px solid red;
+}
+
+
+.omdb-button {
+    -webkit-transition-duration: 0.4s;
+    transition-duration: 0.4s;
+    background-color: red; /* Green */
+    border: none;
+    padding: 5px 15px;
+    border-radius: 3px;
+    color: white;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin-left: 1vw;
+    margin-bottom: 2vh;
+
+
+}
+
+.omdb-button:hover {
+    background-color: white; /* Green */
+    color: red;
+    border: 1px solid red;
+}

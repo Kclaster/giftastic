@@ -22,7 +22,7 @@ class SearchBar extends React.Component {
     renderInput = (field) => {
         return (
             <div>
-                <input {...field.input} />
+                <input className="input"{...field.input} />
             </div>
         )
     }
@@ -30,7 +30,7 @@ class SearchBar extends React.Component {
     render() {
         return (
         <form className="form">
-            <Field label="Add New Favorite" name="addedFavorite" component={this.renderInput} />
+            <Field className="input" label="Add New Favorite" name="addedFavorite" component={this.renderInput} />
             <button onClick={this.handleClick} className="submit-button">Submit</button>
         </form>
         );

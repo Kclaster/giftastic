@@ -6,7 +6,50 @@ import { uploadGif, getGif} from '../actions';
 
 
 class FavoriteList extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            displayNumber: 10
+        }
+    }
 
+
+
+    handleToggleButton = () => {
+            if (this.props.omdbToggle) {
+            return "omdb-button";
+        } else {
+            return "submit-button"
+        }
+    }
+
+
+    handleToggleCss = () => {
+        if (this.props.omdbToggle) {
+            return "omdb";
+        } else {
+            return "Giff"
+        }
+    }
+
+    handleToggleBorder = (style) => {
+        console.log(style);
+        if (style === 'favs') {
+        if (this.props.omdbToggle) {
+            return "favs omdbBorder";
+        } else {
+            return "favs GiffBorder"
+        }
+
+    }
+    else {
+        if (this.props.omdbToggle) {
+            return "omdbBorder";
+        } else {
+            return "GiffBorder"
+        }
+    }
+    }
 
     handleFavClick = (id) => {
         const list = this.props.gifList;
@@ -19,23 +62,27 @@ class FavoriteList extends React.Component {
             return (
             <button onClick={function() {
                 callback(index);
-            }} className="list-item" key={index}>{cur}</button>
+            }} className={this.handleToggleButton()} key={index}>{cur}</button>
             )
-        });
+        }.bind(this));
         return fullList;
     }
 
+    addMoreGifs = () => {
+        let current = this.state.displayNumber;
+        this.setState({displayNumber: current + 10})
+    }
+
     handleClick = (el) => {
-        console.log(el.target);
-        console.log(el.target.getAttribute("animate"));
+        let target = el.target
         if (el.target.getAttribute("animate") ===  "false") {
             el.target.setAttribute("animate", "true")
-            //I was unable to set the attribute to the localscope AnimateGIF, need to put AnimateGIF and Still/GIF in redux and use the store to update.
-
-
-            //create an if else statement to call a different action creator going to the same switch
-            //reducer is a state object which toggles between still and animated depending on if statement from here
-            //only need to find out how to pass in the cur still and animated url's
+            let animateValue = target.getAttribute("animated");
+            target.setAttribute("src", animateValue);
+        } else {
+            el.target.setAttribute("animate", "false")
+            let stillValue = target.getAttribute("still");
+            target.setAttribute("src", stillValue);
         }
     }
     
@@ -47,13 +94,25 @@ class FavoriteList extends React.Component {
         const renderArray = (array) => {
             if (array !== undefined) {
             const mappedGifs = array.map(function(cur, index) {
-                if (index < 10) {
-                // this.props.storeStillGif(cur.images['fixed_width_still'].url);
-                // this.props.storeAnimatedGif(cur.images['fixed_width'].url);
-                return <img onClick={this.handleClick.bind(this)} animate="false" title={cur} src={null} key={index} alt="gif"/>
-                };
-                }.bind(this)); 
-                return mappedGifs;
+                if (index < this.state.displayNumber) {
+                    console.log(cur);
+                    let stillGif = cur.images['fixed_width_still'].url;
+                    let animatedGif = cur.images['fixed_width'].url;
+                     return (
+                     <div className={this.handleToggleBorder()}>
+                        <img still={stillGif} animated={animatedGif} onClick={this.handleClick.bind(this)} animate="false" title={cur} src={stillGif} key={index} alt="gif"/>
+                        <div className={this.handleToggleCss()}>Title: {cur.title}</div>
+                        <div className={this.handleToggleCss()}>Rating: {cur.rating}</div>
+                    </div>
+                     )};
+                        }.bind(this)); 
+            
+                    return (
+                        <div className="center">
+                        {mappedGifs}
+                        <button id="continue" className={this.handleToggleButton()} onClick={this.addMoreGifs}>Continue...</button>
+                        </div>
+                    );
             }; 
         };
 
@@ -61,13 +120,13 @@ class FavoriteList extends React.Component {
 
         return (
             <div>
-                <div className="favs">
-                    <h2>Favorite List</h2>
+                <div className={this.handleToggleBorder('favs')}>
+                    <h2 className={this.handleToggleCss()}>Favorite List</h2>
                     <ul className="unordered-list">
                         {this.renderList(this.handleFavClick)}
                     </ul>
                 </div>
-                <div>
+                <div className="gifArray">
                 {renderArray(gifArray)}
                 </div>
             </div>
@@ -88,6 +147,7 @@ const mapStateToProps = (state) => {
     gifList: state.myFirstReduxKey,
     chosenGif: state.uploadGif,
     gifs: state.getGif,
+    omdbToggle: state.omdbToggle,
     }
 };
 

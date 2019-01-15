@@ -4,6 +4,9 @@ import {
     GET_GIF,
     RUN_DISPLAY,
     DO_NOT_RUN_DISPLAY,
+    SWITCH_TO_OMDB,
+    OMDB_ON,
+    OMDB_OFF
 
  } from './types';
 
@@ -49,6 +52,25 @@ export const runDisplayGif = () => {
 export const doNotRunDisplayGif = () => {
     return {
         type: DO_NOT_RUN_DISPLAY
+    };
+};
+
+
+export const omdbOn = () => {
+    return {
+        type: OMDB_ON
+    }
+}
+
+export const omdbOff = () => {
+    return {
+        type: OMDB_OFF
+    }
+}
+
+export const switchToOmdb = () => {
+    return {
+        type: SWITCH_TO_OMDB
     };
 };
 
